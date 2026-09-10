@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NODE // ISHT-X OS V_11</title>
+    <style>
+        :root {
+            --bg-color: #080810;
+            --panel-bg: #10121d;
+            --accent-cyan: #00f3ff;
+            --accent-pink: #ff0055;
+            --accent-yellow: #ffe600;
+            --text-color: #e0e6ed;
+            --text-dim: #6c7a89;
+            --border-glow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.05) 0%, transparent 80%),
+                linear-gradient(0deg, rgba(0, 0, 0, 0.2) 50%, transparent 50%);
+            background-size: 100% 100%, 100% 4px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--panel-bg);
+            border: 2px solid var(--accent-cyan);
+            box-shadow: var(--border-glow);
+            padding: 25px;
+            position: relative;
+            clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
+        }
+
+        .header {
+            border-bottom: 2px solid var(--accent-pink);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .title h1 {
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 8px var(--accent-cyan);
+            letter-spacing: 2px;
+        }
+
+        .title p {
+            font-size: 0.85rem;
+            color: var(--accent-pink);
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 4px 8px;
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .section {
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 15px;
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            color: var(--accent-yellow);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            background: #080810;
+            border: 1px solid var(--text-dim);
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 5px var(--accent-cyan);
+        }
+
+        .btn {
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            padding: 10px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .btn-pink {
+            color: var(--accent-pink);
+            border-color: var(--accent-pink);
+        }
+
+        .btn-pink:hover {
+            background: var(--accent-pink);
+            color: #fff;
+            box-shadow: 0 0 10px var(--accent-pink);
+        }
+
+        .terminal-log {
+            background: #000;
+            border: 1px solid #222;
+            padding: 10px;
+            font-size: 0.75rem;
+            color: #00ff00;
+            height: 80px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="title">
+            <h1>NODE // DASHBOARD</h1>
+            <p>ISHT-X OS V_11</p>
+        </div>
+        <div class="status-badge" id="connStatus">ONLINE</div>
+    </div>
+
+    <!-- EXPRESSION CONTROL -->
+    <div class="section">
+        <div class="section-title">// EXPRESSION MATRIX</div>
+        <div class="grid">
+            <button class="btn" onclick="setExpression(0, 'NORMAL')">00: NORMAL</button>
+            <button class="btn" onclick="setExpression(1, 'HAPPY')">01: HAPPY</button>
+            <button class="btn" onclick="setExpression(2, 'ANGRY')">02: ANGRY</button>
+            <button class="btn" onclick="setExpression(3, 'DIZZY')">03: DIZZY</button>
+            <button class="btn" onclick="setExpression(4, 'SLEEPING')" style="grid-column: span 2;">04: SLEEP MODE</button>
+        </div>
+    </div>
+
+    <!-- SYSTEM IDENTITY & OWNER -->
+    <div class="section">
+        <div class="section-title">// DEVICE CONFIGURATION</div>
+        <div class="form-group">
+            <label for="ownerName">Owner Designation</label>
+            <input type="text" id="ownerName" value="Arnod">
+        </div>
+        <button class="btn" onclick="updateOwner()">Save Owner Name</button>
+    </div>
+
+    <!-- SYSTEM UPDATE (OTA) -->
+    <div class="section">
+        <div class="section-title">// FIRMWARE FLASHING</div>
+        <a href="/update" style="text-decoration: none;">
+            <button class="btn btn-pink">Launch Web OTA Flasher</button>
+        </a>
+    </div>
+
+    <!-- TERMINAL CONSOLE LOG -->
+    <div class="terminal-log" id="logConsole">
+        > SYSTEM READY.<br>
+        > CONNECTED TO NODE DESK BUDDY.<br>
+        > OWNER: ARNOD.<br>
+    </div>
+
+    <div class="footer">
+        CREATED BY - ARNOD
+    </div>
+</div>
+
+<script>
+    function log(msg) {
+        const consoleEl = document.getElementById('logConsole');
+        consoleEl.innerHTML += `> ${msg}<br>`;
+        consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    function setExpression(id, name) {
+        log(`CHANGING EXPRESSION TO: ${name} (ID: ${id})`);
+        fetch(`/setFace?id=${id}`)
+            .then(res => log(`EXPRESSION COMMAND ACKNOWLEDGED`))
+            .catch(err => log(`HTTP REQUEST SENT (OFFLINE PREVIEW)`));
+    }
+
+    function updateOwner() {
+        const name = document.getElementById('ownerName').value;
+        if (!name) return;
+        log(`UPDATING OWNER NAME TO: "${name}"`);
+        fetch(`/setOwner?name=${encodeURIComponent(name)}`)
+            .then(res => log(`OWNER UPDATED SUCCESSFULLY`))
+            .catch(err => log(`HTTP REQUEST SENT (OFFLINE PREVIEW)`));
+    }
+</script>
+
+</body>
+</html>
