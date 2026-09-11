@@ -1,6 +1,5 @@
 ### `LICENSE`
 
-Create a file named `LICENSE` in the root folder with the following standard open-source license:
 
 ```text
 MIT License
